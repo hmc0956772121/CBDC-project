@@ -1,0 +1,87 @@
+#docker-compose版本
+version: "3.9"
+#服務，每個功能或容器就是一個服務。
+services:
+
+  ###############
+  #銀行django#
+  ###############
+  #服務名稱
+  bank-django-service:
+    #這個是我們的映像檔名稱，可以自己選擇，或者使用現有映像檔
+    image: bank-django-service:0.0
+    #用在這個資料夾下的Dockerfile建立映像檔
+    build: ./dockerfiles/bank-django-service/
+    #要啟動這個，才能在關閉終端後仍然繼續運作容器
+    tty: true
+    #與容器外的資料夾共通的部分
+    #容器外的/codes/bank-django-service:/code對應到容器內的
+    volumes:
+      - ./codes/bank-django-service:/code
+    # 開啟 8080 port 對外，對應到內部的80port
+    ports:
+      - "8081:8000"
+    # 啟動後指令
+    # command: "python manage.py migrate && python manage.py runserver 0.0.0.0:8000" # 該方法要配合 Health Check 達成自動的啟動(未來完成...)
+    command: "python init.py" 
+    # 環境變數
+    environment:
+      # Django的預設密碼
+      DJANGO_SUPERUSER_PASSWORD: dev
+    # 等待資料庫系統運作後再啟動
+    depends_on:
+      - bank-database-service
+    #網路IP設置
+    networks:
+      devnetwork:
+        ipv4_address: 10.0.0.1
+
+  #########
+  #銀行資料庫#
+  #########
+  #服務名稱
+  bank-database-service:
+    #這個是我們的映像檔名稱，可以自己選擇，或者使用現有映像檔
+    image: bank-database-service:0.0
+    #用在這個資料夾下的Dockerfile建立映像檔
+    build: ./dockerfiles/bank-database-service/
+    #要啟動這個，才能在關閉終端後仍然繼續運作容器
+    tty: true
+    #與容器外的資料夾共通的部分
+    environment:
+      MYSQL_DATABASE: data
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: dev
+    # 開啟 8082 port 對外，對應到內部的3306port
+    ports:
+      - "8082:3306"
+    # 啟動後指令
+    command: --default-authentication-plugin=mysql_native_password
+    #網路IP設置
+    networks:
+      devnetwork:
+        ipv4_address: 10.0.0.2
+
+  #########
+  #銀行Redis#
+  #########
+  #服務名稱
+  bank-redis-service:
+    #這個是我們的映像檔名稱，可以自己選擇，或者使用現有映像檔
+    image: redis:6.2-alpine
+    ports:
+      - '8083:6379'
+    command: redis-server --requirepass dev
+    #網路IP設置
+    networks:
+      devnetwork:
+        ipv4_address: 10.0.0.3
+
+networks:
+  #網路名稱為devnetwork，該名稱可以變更。
+  devnetwork:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.0.0.0/16
+         gateway: 10.0.0.254
