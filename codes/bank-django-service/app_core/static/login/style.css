@@ -1,0 +1,71 @@
+/* CSS 變數設置 */
+:root {
+    --page-background-color: #FFECE1;
+    --panel-background-color: #FFFFFF;
+}
+
+/* 整體頁面背景 */
+body {
+    background-color: var(--page-background-color);
+}
+
+/* 登入面板最外框 */
+.login-panel {
+    /* 背景 */
+    background-color: var(--panel-background-color);
+    /* 上方空白 */
+    margin-top: 5%;
+    /* 倒影 */
+    box-shadow: 9px 8px 5px 0px rgba(254, 141, 36, 0.82);
+    -webkit-box-shadow: 9px 8px 5px 0px rgba(254, 141, 36, 0.82);
+    -moz-box-shadow: 9px 8px 5px 0px rgba(254, 141, 36, 0.82);
+
+}
+
+/* 登入面板最外框 */
+.login-panel-image {
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 200px;
+}
+
+/* 登入面板主文字 */
+.login-panel-title {
+    /* 上方空白 */
+    margin-top: 5%;
+}
+
+/* 登入面版帳號文字 */
+.login-panel-label {
+    /* 上方空白 */
+    margin-top: 50px;
+    margin-left: 20px;
+}
+
+/* 登入框 */
+.input-group{
+    margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* 登入按鈕邊界 */
+.login-panel-submit-btn{
+    margin-top: 50px;
+    margin-bottom: 150px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* 登入按鈕 */
+.login-panel-submit-btn button{
+    background-color: #FE8D24 !important;
+    outline-color: #FE8D24 !important;
+    border-color: #FE8D24;
+}
+
+.login-panel-submit-btn button:hover, .login-panel-submit-btn button:active{
+    background-color: #FE8D24 !important;
+    outline-color: #FE8D24 !important;
+    border-color: #FE8D24 !important;
+}
