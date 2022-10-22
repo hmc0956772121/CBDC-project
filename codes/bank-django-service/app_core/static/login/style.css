@@ -14,12 +14,15 @@ body {
     /* 背景 */
     background-color: var(--panel-background-color);
     /* 上方空白 */
-    margin-top: 5%;
+    margin-top: 10%;
     /* 倒影 */
     box-shadow: 9px 8px 5px 0px rgba(254, 141, 36, 0.82);
     -webkit-box-shadow: 9px 8px 5px 0px rgba(254, 141, 36, 0.82);
     -moz-box-shadow: 9px 8px 5px 0px rgba(254, 141, 36, 0.82);
-
+   /*  */
+   width: 500px;
+   margin-left: auto;
+   margin-right: auto;
 }
 
 /* 登入面板最外框 */
