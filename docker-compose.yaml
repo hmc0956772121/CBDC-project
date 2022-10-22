@@ -22,7 +22,6 @@ services:
     ports:
       - "8081:8000"
     # 啟動後指令
-    # command: "python manage.py migrate && python manage.py runserver 0.0.0.0:8000" # 該方法要配合 Health Check 達成自動的啟動(未來完成...)
     command: "python init.py" 
     # 環境變數
     environment:
