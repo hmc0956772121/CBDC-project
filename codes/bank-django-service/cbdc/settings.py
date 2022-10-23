@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,8 +32,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # 手動添加的APP
     'app_core.apps.AppCoreConfig',
-    # 'app_core',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -74,15 +76,15 @@ WSGI_APPLICATION = 'cbdc.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
+# os.environ['REDIS_IP']
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', #MySQL
-        'NAME': 'data',                       
-        'USER': 'root',                       #管理員
-        'PASSWORD': 'dev',                    #密碼
-        'HOST': '10.0.0.2',                   #
-        'PORT': '3306',                       #
+        'ENGINE': 'django.db.backends.mysql',   #MySQL
+        'NAME': os.environ['MYSQL_DATABASE'],   #資料庫名稱                
+        'USER': os.environ['MYSQL_USER'],       #管理員
+        'PASSWORD': os.environ['MYSQL_PASSWORD'],#密碼
+        'HOST': os.environ['MYSQL_IP'],          #資料庫IP
+        'PORT': '3306',                       
     }
 }
 

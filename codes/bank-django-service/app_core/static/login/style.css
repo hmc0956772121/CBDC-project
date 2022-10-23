@@ -15,7 +15,7 @@ body {
     /* 背景 */
     background-color: var(--panel-background-color);
     /* 上方空白 */
-    margin-top: 10%;
+    margin-top: 100px;
     /* 倒影 */
     box-shadow: 9px 8px 5px 0px rgba(254, 141, 36, 0.82);
     -webkit-box-shadow: 9px 8px 5px 0px rgba(254, 141, 36, 0.82);
