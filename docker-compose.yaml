@@ -88,6 +88,31 @@ services:
       devnetwork:
         ipv4_address: 10.0.0.3
 
+  #########
+  #API文檔服務#
+  #########
+  #服務名稱，如果我們要登入容器是要輸入服務名稱的，隨意取名即可
+  swagger-server:
+    #這個是我們的映像檔名稱，可以自己選擇，當映像檔建立時就會是 store-server版本0.0
+    image: swaggerapi/swagger-ui
+    #環境變數
+    environment:
+      -  SWAGGER_JSON=/app/swagger.yaml
+    #要啟動這個，才能在關閉終端後仍然繼續運作容器
+    tty: true
+    #與容器外的資料夾共通的部分
+    volumes:
+      - ./codes/swagger:/app
+    # 開啟 8081 port 對外
+    ports:
+      - "8084:8080"
+    # 啟動後指令
+    command: ""
+    #網路IP設置
+    networks:
+      devnetwork:
+        ipv4_address: 10.0.0.4
+
 networks:
   #網路名稱為devnetwork，該名稱可以變更。
   devnetwork:
