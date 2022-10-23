@@ -35,13 +35,13 @@ python manage.py makemigrations
 ```
 python manage.py migrate
 ```
-### 建立管理員使用者
+### 手動建立管理員使用者
 
 ```
 python manage.py createsuperuser
 ```
 
-建議採取以下帳號密碼
+預設的管理員帳號密碼(建議採用)
 
 帳號: root
 
