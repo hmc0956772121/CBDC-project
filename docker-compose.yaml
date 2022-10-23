@@ -27,6 +27,10 @@ services:
     environment:
       # Django的預設密碼
       DJANGO_SUPERUSER_PASSWORD: dev
+      # Django連入的 redis 的IP
+      REDIS_IP: 10.0.0.3
+      # Django連入的 redis 的密碼
+      REDIS_PASSWORD: dev
     # 等待資料庫系統運作後再啟動
     depends_on:
       - bank-database-service

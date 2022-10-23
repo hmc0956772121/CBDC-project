@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.shortcuts import render
+from .models import Login
 
-# Create your views here.
+# 前端頁面
 
 def index(request):
     # return HttpResponse("index")
@@ -15,3 +15,17 @@ def home(request):
 def login(request):
     # return HttpResponse("login")
     return render(request, 'login/index.html')
+
+# API 與反饋
+
+# 登入 API
+def login_api(request):
+    login =Login()
+    result = login.login(request)
+    return HttpResponse(result)
+
+# 檢查登入 API
+def check_login(request):
+    login =Login()
+    result = login.check_login(request)
+    return HttpResponse(result)

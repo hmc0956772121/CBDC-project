@@ -2,6 +2,7 @@
 :root {
     --page-background-color: #FFECE1;
     --panel-background-color: #FFFFFF;
+    --main-color: #FE8D24;
 }
 
 /* 整體頁面背景 */
@@ -19,10 +20,17 @@ body {
     box-shadow: 9px 8px 5px 0px rgba(254, 141, 36, 0.82);
     -webkit-box-shadow: 9px 8px 5px 0px rgba(254, 141, 36, 0.82);
     -moz-box-shadow: 9px 8px 5px 0px rgba(254, 141, 36, 0.82);
-   /*  */
-   width: 500px;
-   margin-left: auto;
-   margin-right: auto;
+    /*  */
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 登入面板手機 */
+@media (max-width: 480px) {
+    .login-panel {
+        width: 100%;
+    }
 }
 
 /* 登入面板最外框 */
@@ -46,14 +54,14 @@ body {
 }
 
 /* 登入框 */
-.input-group{
+.input-group {
     margin-top: 20px;
     padding-left: 20px;
     padding-right: 20px;
 }
 
 /* 登入按鈕邊界 */
-.login-panel-submit-btn{
+.login-panel-submit-btn {
     margin-top: 50px;
     margin-bottom: 150px;
     padding-left: 20px;
@@ -61,14 +69,15 @@ body {
 }
 
 /* 登入按鈕 */
-.login-panel-submit-btn button{
-    background-color: #FE8D24 !important;
-    outline-color: #FE8D24 !important;
-    border-color: #FE8D24;
+.login-panel-submit-btn button,
+.login-panel-submit-btn button:hover,
+.login-panel-submit-btn button:active {
+    background-color: var(--main-color) !important;
+    outline-color: var(--main-color) !important;
+    border-color: var(--main-color) !important;
 }
 
-.login-panel-submit-btn button:hover, .login-panel-submit-btn button:active{
-    background-color: #FE8D24 !important;
-    outline-color: #FE8D24 !important;
-    border-color: #FE8D24 !important;
+/* 登入失敗提示 */
+#LoginFail{
+    color: var(--main-color);
 }

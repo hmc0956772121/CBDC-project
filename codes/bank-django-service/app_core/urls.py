@@ -10,5 +10,6 @@ urlpatterns = [
     path('login', views.login, name='login'),
 
     # API
-    
+    path('api/login', views.login_api),
+    path('api/check_login', views.check_login),
 ]

@@ -28,7 +28,7 @@
 
                 <!-- 帳號輸入 -->
                 <div class="input-group">
-                    <input type="text" class="form-control" name="account" placeholder="帳號">
+                    <input id="account" type="text" class="form-control" name="account" placeholder="帳號">
                 </div>
 
                 <!-- 密碼 -->
@@ -36,12 +36,14 @@
                 
                 <!-- 密碼輸入 -->
                 <div class="input-group">
-                    <input type="password" class="form-control" name="password" placeholder="密碼">
+                    <input id="password" type="password" class="form-control" name="password" placeholder="密碼">
                 </div>
 
                 <!-- 送出按鈕 -->
                 <div class="login-panel-submit-btn d-grid gap-2">
-                    <button class="btn btn-primary" type="button">登入</button>
+                    <!-- 登入失敗提示 -->
+                    <p id = "LoginFail"> </p>
+                    <button id="submit" class="btn btn-primary" type="button">登入</button>
                   </div>
 
 
@@ -56,4 +58,5 @@
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
 
+<script  type="module" src="/static/login/script.js"></script>
 </html>
