@@ -15,7 +15,7 @@ paths:
     get:
       tags:
       - "銀行API"
-      summary: 取得銀行公鑰。
+      summary: 登入使用者取得token。
       description: ""
       # 請求參數
       parameters:
