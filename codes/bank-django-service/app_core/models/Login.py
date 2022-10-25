@@ -20,30 +20,24 @@ class Login():
         return True if result == 1 else False
 
     def setUserToken(self,account:str):
-        redis_connection = redis.Redis(host=os.environ['REDIS_IP'], port=6379, db=0, password=os.environ['REDIS_PASSWORD'])
-        # 檢查使用者是否在已經登入的用戶表中，終止後續程序
-        if redis_connection.exists('login_user_list'):
-            user_list = json.loads(redis_connection.get('login_user_list'))
-            if account in user_list:
-                if redis_connection.exists(user_list[account]):
-                    redis_connection.expire(user_list[account],300)
-                    return user_list[account]
-                else:
-                    redis_connection.delete(user_list[account])                    
+        # Redis 連線物件
+        redis_connection_token_index = redis.Redis(host=os.environ['REDIS_IP'], port=6379, db=0, password=os.environ['REDIS_PASSWORD'])
+        redis_connection_user_index = redis.Redis(host=os.environ['REDIS_IP'], port=6379, db=1, password=os.environ['REDIS_PASSWORD'])
+
+        # 檢查使用者是否在已經登入的用戶表中，終止後續程序，回傳Token
+        if redis_connection_user_index.exists('account'):
+            return redis_connection_user_index.get(account)
 
         # 用 uuid 作為使用者的Token
-        uuid_str = uuid.uuid4().hex
+        token = uuid.uuid4().hex
         json_data = json.dumps({'account':account})
-        redis_connection.set(uuid_str,json_data)
-        redis_connection.expire(uuid_str,300)
+        redis_connection_token_index.set(token,json_data)
+        redis_connection_token_index.expire(token,300) # 300 秒，5分鐘超時。
 
         # 將使用者加入已經登入的使用者表單
-        user_list = dict()
-        if redis_connection.exists('login_user_list'):
-            user_list = json.loads(redis_connection.get('login_user_list'))
-        user_list[account] = uuid_str
-        redis_connection.set('login_user_list',json.dumps(user_list))
-        return uuid_str
+        redis_connection_user_index.set(account,token)
+        redis_connection_token_index.expire(account,300)
+        return token
 
     # 登入方法
     def login(self, request):
@@ -84,6 +78,7 @@ class Login():
         data = None
         result =dict()
         token = None
+        redis_connection = redis.Redis(host=os.environ['REDIS_IP'], port=6379, db=0, password=os.environ['REDIS_PASSWORD'])
 
         # 無論GET或者POST都接收，之後依照需求修改
         if request.method == 'GET':
@@ -91,16 +86,13 @@ class Login():
         elif request.method == 'POST':
             data = request.POST
 
-        # 檢查 Requests 參數是否正確
-        try:
+        # 檢查Token 是否正確，同時相容token存在於cookie或者request中。
+        if "token" in data:
             token = data["token"]
-        except:
-            result = {'code':0, 'message':'Parameters format wrong.'}
-            result = json.dumps(result)
-            return result
+        elif "token" in request.COOKIES:
+            token = request.COOKIES["token"]
 
-        redis_connection = redis.Redis(host=os.environ['REDIS_IP'], port=6379, db=0, password=os.environ['REDIS_PASSWORD'])
-
+        # 檢查 Redis 中是否存在該Token
         if redis_connection.exists(token):
             result = {'code':1,'message':'Login success.'}
         else:
