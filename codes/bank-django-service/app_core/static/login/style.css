@@ -21,7 +21,7 @@ body {
     -webkit-box-shadow: 9px 8px 5px 0px rgba(254, 141, 36, 0.82);
     -moz-box-shadow: 9px 8px 5px 0px rgba(254, 141, 36, 0.82);
     /*  */
-    width: 500px;
+    width: 400px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -63,7 +63,7 @@ body {
 /* 登入按鈕邊界 */
 .login-panel-submit-btn {
     margin-top: 50px;
-    margin-bottom: 150px;
+    margin-bottom: 60px;
     padding-left: 20px;
     padding-right: 20px;
 }
