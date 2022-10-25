@@ -30,7 +30,7 @@ class LoginTestClass(TestCase):
         print("[登入測試] 正確登入測試")
         result = requests.get(self.login_url, params={'account': self.account, 'password':self.password})
         result_json_object = json.loads(result.text)
-        self.assertEqual(result_json_object['code'], 1)
+        self.assertEqual(result_json_object['code'], 1, '\n\n正確登入測試失敗!')
         
         print("[登入測試] 檢查Redis是否正確存有Token")
         token = self.redis_connection_user_index.get(self.account).decode('utf-8')
@@ -47,7 +47,7 @@ class LoginTestClass(TestCase):
         self.redis_connection_user_index.delete(self.account)
         
         # 錯誤登入
-        print("[登入測試] 錯誤登入測試")
+        print("[登入測試] 登入失敗判別測試")
         result = requests.get(self.login_url, params={'account': self.account, 'password':'wrong password'})
         result_json_object = json.loads(result.text)
         self.assertEqual(result_json_object['code'], 0)
