@@ -26,7 +26,7 @@ class Login():
 
         # 檢查使用者是否在已經登入的用戶表中，終止後續程序，回傳Token
         if redis_connection_user_index.exists(account):
-            return str(redis_connection_user_index.get(account))
+            return redis_connection_user_index.get(account).decode("utf-8") 
 
         # 用 uuid 作為使用者的Token
         token = uuid.uuid4().hex
