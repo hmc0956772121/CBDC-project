@@ -25,8 +25,8 @@ class Login():
         redis_connection_user_index = redis.Redis(host=os.environ['REDIS_IP'], port=6379, db=1, password=os.environ['REDIS_PASSWORD'])
 
         # 檢查使用者是否在已經登入的用戶表中，終止後續程序，回傳Token
-        if redis_connection_user_index.exists('account'):
-            return redis_connection_user_index.get(account)
+        if redis_connection_user_index.exists(account):
+            return str(redis_connection_user_index.get(account))
 
         # 用 uuid 作為使用者的Token
         token = uuid.uuid4().hex
