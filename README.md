@@ -1,4 +1,4 @@
-# 啟動專案Docker容器群
+# 啟動專案Docker容器群 2022/10/25
 
 ```
 docker-compose up -d --build --force-recreate
@@ -58,3 +58,4 @@ python manage.py runserver 0.0.0.0:8000
 ```
 python manage.py loaddata app_core/fixtures/data.json
 ```
+
