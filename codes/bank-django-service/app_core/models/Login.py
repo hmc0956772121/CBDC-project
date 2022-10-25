@@ -20,6 +20,10 @@ class Login():
         return True if result == 1 else False
 
     def setUserToken(self,account:str):
+        # 生成Token 
+        token = uuid.uuid4().hex
+        json_data = json.dumps({'account':account})
+        
         # Redis 連線物件
         redis_connection_token_index = redis.Redis(host=os.environ['REDIS_IP'], port=6379, db=0, password=os.environ['REDIS_PASSWORD'])
         redis_connection_user_index = redis.Redis(host=os.environ['REDIS_IP'], port=6379, db=1, password=os.environ['REDIS_PASSWORD'])
@@ -28,15 +32,14 @@ class Login():
         if redis_connection_user_index.exists(account):
             return redis_connection_user_index.get(account).decode("utf-8") 
 
+        # 將使用者加入已經登入的使用者表單
+        redis_connection_user_index.set(account,token)
+        redis_connection_user_index.expire(account,300)
+
         # 用 uuid 作為使用者的Token
-        token = uuid.uuid4().hex
-        json_data = json.dumps({'account':account})
         redis_connection_token_index.set(token,json_data)
         redis_connection_token_index.expire(token,300) # 300 秒，5分鐘超時。
 
-        # 將使用者加入已經登入的使用者表單
-        redis_connection_user_index.set(account,token)
-        redis_connection_token_index.expire(account,300)
         return token
 
     # 登入方法
