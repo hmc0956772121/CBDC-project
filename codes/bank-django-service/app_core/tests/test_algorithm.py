@@ -76,7 +76,6 @@ class TestAlgorithm(TestCase):
         signer.verify_C1()
 
     def test_PartiallyBlindSignatureServerInterface(self):
-        signer = PartiallyBlindSignatureServerInterface()
-        
+        signer = PartiallyBlindSignatureServerInterface('token')
 
 

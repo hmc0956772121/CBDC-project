@@ -42,7 +42,7 @@ C: int，簽章。
 =================
 """
 class PartiallyBlindSignatureServerInterface:
-    def __init__(self):
+    def __init__(self, token:str):
         # 從環境變數取得ECDSA鑰匙
         self.ECDSA_PUBLICKEY = os.environ['ECDSA_PUBLICKEY']
         self.ECDSA_PRIVATEKEY = os.environ['ECDSA_PRIVATEKEY']
@@ -58,7 +58,7 @@ class PartiallyBlindSignatureServerInterface:
         # Redis 連線
         self.redis_connection = redis.Redis(host=os.environ['REDIS_IP'], port=6379, db=2, password=os.environ['REDIS_PASSWORD'])
         # 檢查使用者當前進行到的步驟
-        self.step = self.checkStep()
+        self.create_or_load_status(token)
 
     # 生成隨機二進位序列
     def generate_b_list(self):
@@ -75,13 +75,14 @@ class PartiallyBlindSignatureServerInterface:
         i_list.sort()
         return i_list
 
-    # 
-    def checkStep(self, token:str):
+    # 創建新的認證狀態，或者載入舊的
+    def create_or_load_status(self, token:str):
         status = dict()
         if self.redis_connection.exists(token):
-            status = self.redis_connection.get(token)
-            status = json.loads(status)
-            return status['zero_knowledge_proof_step']
+            self.status = json.loads(self.redis_connection.get(token))
         else:
             status['zero_knowledge_proof_step'] = 1
+            status['i_list'] = self.generate_i_list()
+            status['b_list'] = self.generate_b_list()
             self.redis_connection.set(token, json.dumps(status))
+            self.status = status
