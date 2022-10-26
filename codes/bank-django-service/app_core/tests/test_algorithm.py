@@ -76,7 +76,20 @@ class TestAlgorithm(TestCase):
         signer.verify_C1()
 
     def test_PartiallyBlindSignatureServerInterface(self):
+        redis_connection = redis.Redis(host=os.environ['REDIS_IP'], port=6379, db=2, password=os.environ['REDIS_PASSWORD'])
+        
         signer = PartiallyBlindSignatureServerInterface('token')
-        print(signer.get_output())
+        print(signer.output())
+        signer_step1 = signer.output()
+        signer.save_and_next_step('token')
 
+        user = PartiallyBlindSignatureClientInterface()
+        user.generate_message_hash("Message")
+        user.generate_I("Public")
+        user.step1_input(signer_step1)
+        user.generate_keypairs_parameters()
+        user_step1 = user.step1_output()
 
+        signer.input(user_step1)
+
+        redis_connection.delete('token')
