@@ -58,6 +58,7 @@ class PartiallyBlindSignatureServerInterface:
         # Redis 連線
         self.redis_connection = redis.Redis(host=os.environ['REDIS_IP'], port=6379, db=2, password=os.environ['REDIS_PASSWORD'])
         # 檢查使用者當前進行到的步驟
+        self.status = dict()
         self.create_or_load_status(token)
 
     # 生成隨機二進位序列
