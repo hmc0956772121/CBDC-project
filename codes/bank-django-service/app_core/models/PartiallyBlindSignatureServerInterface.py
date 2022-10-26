@@ -82,8 +82,14 @@ class PartiallyBlindSignatureServerInterface:
         if self.redis_connection.exists(token):
             self.status = json.loads(self.redis_connection.get(token))
         else:
-            status['zero_knowledge_proof_step'] = 1
+            status['step'] = 1
             status['i_list'] = self.generate_i_list()
             status['b_list'] = self.generate_b_list()
             self.redis_connection.set(token, json.dumps(status))
             self.status = status
+
+    # 取得輸出
+    def get_output(self):
+        print(self.status)
+        if self.status["step"] == 1:
+            return json.dumps({"K1x":self.K1x, "K1y":self.K1y, "b_list":self.status["b_list"]})

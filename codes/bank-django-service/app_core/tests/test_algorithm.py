@@ -77,5 +77,6 @@ class TestAlgorithm(TestCase):
 
     def test_PartiallyBlindSignatureServerInterface(self):
         signer = PartiallyBlindSignatureServerInterface('token')
+        print(signer.get_output())
 
 
