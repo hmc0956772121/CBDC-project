@@ -82,7 +82,7 @@ class PartiallyBlindSignatureServer(YiModifiedPaillierEncryptionPy):
         """設置C2p，使用者隨機數值生成的密文
         設置C2p，使用者隨機數值生成的密文，內部不含有意義訊息，但可以用來證明使用者以正確的方式生成C2訊息密文。        
         """
-        self.C1p = C1p
+        self.C2p = C2p
 
     def generate_b(self):
         self.b = random.randrange(2)

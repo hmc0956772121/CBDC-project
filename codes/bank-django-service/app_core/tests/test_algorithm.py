@@ -7,6 +7,10 @@ from ellipticcurve.privateKey import PrivateKey, PublicKey
 from ..models import YiModifiedPaillierEncryptionPy
 from ..models import PartiallyBlindSignatureClient
 from ..models import PartiallyBlindSignatureServer
+from ..models import PartiallyBlindSignatureClientInterface
+from ..models import PartiallyBlindSignatureServerInterface
+import requests
+import redis
 
 class TestAlgorithm(TestCase):
     
@@ -32,7 +36,7 @@ class TestAlgorithm(TestCase):
         self.assertTrue(result, "\n\n ECDSA模塊測試失敗，有可能是模塊損壞或者ECDSA鑰匙錯誤")
 
     # 測試盲簽章
-    def test_Paillier(self):
+    def test_ZeroKnowledgeProof(self):
         print("[算法測試] 盲簽章驗證")
         publicKey = PublicKey.fromPem(self.ECDSA_PUBLICKEY)
         
@@ -71,5 +75,8 @@ class TestAlgorithm(TestCase):
         signer.set_zero_know_proof_parameters_C1_json(send_to_signer)
         signer.verify_C1()
 
-
+    def test_PartiallyBlindSignatureServerInterface(self):
+        signer = PartiallyBlindSignatureServerInterface()
         
+
+

@@ -260,7 +260,7 @@ class YiModifiedPaillierEncryptionPy:
         N_power_2 = pow(N,2)
         temp_numner1 = gmpy2.mul(gmpy2.mul(p-1, q-1), k-1)
         D = gmpy2.powmod(C, temp_numner1, N_power_2)
-        temp_numner2 = (D-1)/(gmpy2.mul(gmpy2.mul(N,p), k))
+        temp_numner2 = (D-1)//(gmpy2.mul(gmpy2.mul(N,p), k))
         m = gmpy2.mod(gmpy2.mul(temp_numner2 ,gmpy2.invert(temp_numner1, q)) , q)
         return int(m)
 
