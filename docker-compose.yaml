@@ -39,6 +39,10 @@ services:
       MYSQL_PASSWORD: dev
       # MySQL IP 或網址
       MYSQL_IP: 10.0.0.2
+      # ECDSA 公鑰
+      ECDSA_PUBLICKEY: "${ECDSA_PUBLICKEY}"
+      # ECDSA 私鑰
+      ECDSA_PRIVATEKEY: "${ECDSA_PRIVATEKEY}"
     # 等待資料庫系統運作後再啟動
     depends_on:
       - bank-database-service
