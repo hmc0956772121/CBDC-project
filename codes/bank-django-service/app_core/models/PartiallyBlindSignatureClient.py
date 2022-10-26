@@ -9,12 +9,12 @@ from .YiModifiedPaillierEncryptionPy import YiModifiedPaillierEncryptionPy
 class PartiallyBlindSignatureClient(YiModifiedPaillierEncryptionPy):
     """
     部分盲簽章Client端算法類別
-
+    撰寫: 蕭維均
     演算法引用自
     H. Huang, Z. -Y. Liu and R. Tso, "Partially Blind ECDSA Scheme and Its Application to Bitcoin," 2021 IEEE Conference on Dependable and Secure Computing (DSC), 2021, pp. 1-8.
     """
     def __init__(self):
-        self.n = 10 # 決定隨機數list_l的數字數量
+        self.n = 40 # 決定隨機數list_l的數字數量
         
         # 訊息相關與Hash
         self.message_hash = None # 訊息的SHA256轉換成整數

@@ -6,8 +6,8 @@ import os
 import uuid
 
 class Login():
-    """
-    登入類別
+    """登入類別
+    撰寫: 蕭維均
     """
     def check_account(self, account:str):
         user_exist =  User.objects.filter(account__contains=account).count()

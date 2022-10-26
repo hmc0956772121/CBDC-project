@@ -10,7 +10,7 @@ from .YiModifiedPaillierEncryptionPy import YiModifiedPaillierEncryptionPy
 class PartiallyBlindSignatureServer(YiModifiedPaillierEncryptionPy):
     """
     部分盲簽章Server端算法類別
-
+    撰寫: 蕭維均
     演算法引用自
     H. Huang, Z. -Y. Liu and R. Tso, "Partially Blind ECDSA Scheme and Its Application to Bitcoin," 2021 IEEE Conference on Dependable and Secure Computing (DSC), 2021, pp. 1-8.
     """

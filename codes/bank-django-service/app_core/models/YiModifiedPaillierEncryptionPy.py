@@ -16,6 +16,8 @@ class YiModifiedPaillierEncryptionPy:
     該演算法參考自論文: 'Xun Yi and Kwok-Yan Lam. 2019. A New Blind ECDSA Scheme for Bitcoin Transaction Anonymity'。
     由嘉義大學資訊安全實驗室與政治大學實作。
 
+    撰寫: 蕭維均
+
     Attributes:
         q(gmpy2.mpz): q 在該算法中裡頭屬於ECDSA中橢圓曲線的Order，用於測試加解密有效性。
         p: int，私鑰的一部分。
