@@ -4,3 +4,4 @@ mysqlclient==1.4.6
 redis == 4.3.4
 django-cors-headers == 3.10.0
 requests == 2.27.0
+gmpy2 == 2.1.2

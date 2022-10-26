@@ -10,6 +10,6 @@ WORKDIR /code
 COPY requirements.txt /code/
 
 RUN apt-get clean && apt-get -y update && \
-    apt-get -y install libsasl2-dev python-dev libldap2-dev libssl-dev libsnmp-dev
+    apt-get -y install libsasl2-dev python-dev libldap2-dev libssl-dev libsnmp-dev libgmp-dev libmpfr-dev libmpc-dev
 
 RUN pip install -r requirements.txt 

@@ -7,8 +7,11 @@ import json
 import os
 
 
-class LoginTestClass(TestCase):
-
+class TestLogin(TestCase):
+    """測試登入系統
+    確認登入系統是否正常
+    """
+    # 測試初始設置
     def setUp(self):
         # 網址路徑
         self.login_url = 'http://127.0.0.1:8000/api/login'
@@ -24,6 +27,7 @@ class LoginTestClass(TestCase):
         self.redis_connection_token_index = redis.Redis(host=os.environ['REDIS_IP'], port=6379, db=0, password=os.environ['REDIS_PASSWORD'])
         self.redis_connection_user_index = redis.Redis(host=os.environ['REDIS_IP'], port=6379, db=1, password=os.environ['REDIS_PASSWORD'])
         
+    # 測試登入
     def test_Login(self):
         login = Login()
         # 正確登入
