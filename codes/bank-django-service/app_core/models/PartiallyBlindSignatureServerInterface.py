@@ -53,13 +53,14 @@ class PartiallyBlindSignatureServerInterface:
         publicKey = PublicKey.fromPem(self.ECDSA_PUBLICKEY)
         self.K1x = publicKey.point.x
         self.K1y = publicKey.point.y
+        self.q = publicKey.curve.N
         # 零知識證明次數
         self.NumberOfZeroKnowledgeProofRound = 20
         # User端的L長度
         self.LengthOfL = 40
         self.LengthOfi = 20
         # Redis 連線
-        self.redis_connection = redis.Redis(host=os.environ['REDIS_IP'], port=6379, db=2, password=os.environ['REDIS_PASSWORD'])
+        self.redis_connection = redis.Redis(host=os.environ['REDIS_IP'], port=6379, db=0, password=os.environ['REDIS_PASSWORD'])
         # 檢查使用者當前進行到的步驟
         self.status = dict()
         self.create_or_load_status(token)
@@ -81,9 +82,9 @@ class PartiallyBlindSignatureServerInterface:
 
     # 創建新的認證狀態，或者載入舊的
     def create_or_load_status(self,token):
-        status = dict()
-        if self.redis_connection.exists(token):
-            self.status = json.loads(self.redis_connection.get(token))
+        status = json.loads(self.redis_connection.get(token))
+        if 'step' in status:
+            self.status = status
         else:
             status['step'] = 1
             status['i_list'] = self.generate_i_list()
@@ -115,6 +116,49 @@ class PartiallyBlindSignatureServerInterface:
 
     # 零知識證明驗證
     def zero_knowledge_proof_vefify(self, input:dict):
+        result = True
+        Yi = YiModifiedPaillierEncryptionPy()
         for i in range(self.NumberOfZeroKnowledgeProofRound):
+            b = self.status["b_list"][i]
             ZeroKnowledgeProofC1List = input["ZeroKnowledgeProofC1List"]
-            print(ZeroKnowledgeProofC1List[i]['Cp'])
+            ZeroKnowledgeProofC2List = input["ZeroKnowledgeProofC2List"]
+            C1p = ZeroKnowledgeProofC1List[i]['Cp']
+            C2p = ZeroKnowledgeProofC2List[i]['Cp']
+
+            if b == 0:
+                C1_x = ZeroKnowledgeProofC1List[i]['x']
+                C1_rp = ZeroKnowledgeProofC1List[i]['rp']
+                C1p_test = Yi.encrypt(C1_x, self.status["N"], self.status["g"],C1_rp,self.q)
+
+                C2_x = ZeroKnowledgeProofC2List[i]['x']
+                C2_rp = ZeroKnowledgeProofC2List[i]['rp']
+                C2p_test = Yi.encrypt(C2_x, self.status["N"], self.status["g"],C2_rp,self.q)
+
+                if C1p_test != C1p:
+                    result = False
+                    break
+
+                if C2p_test != C2p:
+                    result = False
+                    break
+
+            elif b == 1:
+                C1_xp = ZeroKnowledgeProofC1List[i]['xp']
+                C1_rpp = ZeroKnowledgeProofC1List[i]['rpp']
+                C1C1p_mod_q = gmpy2.mod(gmpy2.mul(self.status['C1'], C1p), pow(self.status['N'],2))
+                C1C1p_test = Yi.encrypt(C1_xp, self.status["N"],self.status["g"],C1_rpp,self.q)
+                
+                C2_xp = ZeroKnowledgeProofC2List[i]['xp']
+                C2_rpp = ZeroKnowledgeProofC2List[i]['rpp']
+                C2C2p_mod_q = gmpy2.mod(gmpy2.mul(self.status['C2'], C2p), pow(self.status['N'],2))
+                C2C2p_test = Yi.encrypt(C2_xp, self.status["N"],self.status["g"],C2_rpp,self.q)
+
+                if C1C1p_mod_q != C1C1p_test:
+                    result = False
+                    break
+            
+                if C2C2p_mod_q != C2C2p_test:
+                    result = False
+                    break
+                
+

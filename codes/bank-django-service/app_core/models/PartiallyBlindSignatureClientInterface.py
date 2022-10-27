@@ -222,7 +222,7 @@ class PartiallyBlindSignatureClientInterface:
         for i in range(self.NumberOfZeroKnowledgeProofRound):
             b = self.b_list[i]
             C1_zero_know_proof_parameter_sets.append(self.generate_zero_know_proof_parameter_set(self.message_hash,self.r1,b))
-            C2_zero_know_proof_parameter_sets.append(self.generate_zero_know_proof_parameter_set(self.I,self.r1,b))
+            C2_zero_know_proof_parameter_sets.append(self.generate_zero_know_proof_parameter_set(self.t,self.r2,b))
 
         result['ZeroKnowledgeProofC1List'] = C1_zero_know_proof_parameter_sets
         result['ZeroKnowledgeProofC2List'] = C2_zero_know_proof_parameter_sets
