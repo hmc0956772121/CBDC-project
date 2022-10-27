@@ -101,13 +101,19 @@ class PartiallyBlindSignatureServerInterface:
 
     # 取得使用者輸入
     def input(self,input):
-        if self.status["step"] == 2:
+        if self.status["step"] == 1:
+            raise Exception("第一步驟，從簽署者輸出公鑰，不需要輸入任何東西。")
+        elif self.status["step"] == 2:
             input = json.loads(input)
             self.status["C1"] = input["C1"]
             self.status["C2"] = input["C2"]
             self.status["N"] = input["N"]
             self.status["g"] = input["g"]
             self.zero_knowledge_proof_vefify(input)
+        elif self.status["step"] == 3:
+            pass
+        elif self.status["step"] == 4:
+            pass
 
     # 取得輸出
     def output(self):
@@ -118,13 +124,14 @@ class PartiallyBlindSignatureServerInterface:
     def zero_knowledge_proof_vefify(self, input:dict):
         result = True
         Yi = YiModifiedPaillierEncryptionPy()
+        # 零知識證明，重複驗證40次
         for i in range(self.NumberOfZeroKnowledgeProofRound):
             b = self.status["b_list"][i]
             ZeroKnowledgeProofC1List = input["ZeroKnowledgeProofC1List"]
             ZeroKnowledgeProofC2List = input["ZeroKnowledgeProofC2List"]
             C1p = ZeroKnowledgeProofC1List[i]['Cp']
             C2p = ZeroKnowledgeProofC2List[i]['Cp']
-
+            # 若該次的詢問內容為0 
             if b == 0:
                 C1_x = ZeroKnowledgeProofC1List[i]['x']
                 C1_rp = ZeroKnowledgeProofC1List[i]['rp']
@@ -141,7 +148,7 @@ class PartiallyBlindSignatureServerInterface:
                 if C2p_test != C2p:
                     result = False
                     break
-
+            # 若該次的詢問內容為1
             elif b == 1:
                 C1_xp = ZeroKnowledgeProofC1List[i]['xp']
                 C1_rpp = ZeroKnowledgeProofC1List[i]['rpp']
@@ -160,5 +167,5 @@ class PartiallyBlindSignatureServerInterface:
                 if C2C2p_mod_q != C2C2p_test:
                     result = False
                     break
-                
+        return result
 
