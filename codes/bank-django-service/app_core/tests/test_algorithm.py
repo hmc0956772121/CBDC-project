@@ -42,7 +42,6 @@ class TestAlgorithm(TestCase):
         token = login.setUserToken("user")
 
         signer = PartiallyBlindSignatureServerInterface(token)
-        print(signer.output())
         signer_step1 = signer.output()
         signer.save_and_next_step(token)
 

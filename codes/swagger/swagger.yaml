@@ -8,7 +8,7 @@ servers:
     description: 銀行伺服器
 tags:
   - name: "銀行API"
-    description: "從銀行領錢與存款的API。"
+    description: "從銀行領錢的API。"
 
 paths:
   /api/login:
@@ -51,36 +51,78 @@ paths:
                   token:
                     type: string
                     example: 95f585c748524b1ba154c13a37f973f4
+    post:
+      tags:
+      - "銀行API"
+      summary: 登入使用者取得token。
+      description: ""
+      requestBody:
+        description: 登入使用者取得token。
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              # 請求參數
+              properties:
+                - account:
+                  type: string
+                  default: user
+                  required: true
+                - password:
+                  type: string
+                  default: user 
+                  required: true    
+      responses:
+        200:
+          description: 收到回傳訊息。
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  code:
+                    type: int
+                    example: 1
+                  message:
+                    type: string
+                    example: Login success.
+                  token:
+                    type: string
+                    example: 95f585c748524b1ba154c13a37f973f4
 
-  # /get-currency:
-  #   post:
-  #     tags:
-  #     - "銀行API"
-  #     summary: 將帳號密碼加密後，存成密文，認證成功後以提取貨幣。
-
-  #     requestBody:
-  #       description: 將帳號密碼加密後，存成密文，認證成功後以提取貨幣。
-  #       required: true
-  #       content:
-  #         application/x-www-form-urlencoded:
-  #           schema:
-  #             type: object
-  #             properties:
-  #               cipher_user_input:
-  #                 type: string      
-  #     responses:
-  #       200:
-  #         description: 收到回傳訊息。
-  #         content:
-  #           application/json:
-  #             schema: 
-  #               type: object
-  #               properties:
-  #                 Status:
-  #                   type: string
-  #                   description: 領取成功失敗的狀態
-  #                   example: Success/Fail/Decrypt fail
-  #                 cipher_currency:
-  #                   type: string
-  #                   description: 加密後的貨幣
-  #                   example: ASDASEW445323SCCFFD3232==
+  # 驗證登入API
+  /api/check_login:
+    get:
+      security:
+        - token: []
+      tags:
+      - "銀行API"
+      summary: 檢查使用者token
+      description: ""
+      # 請求參數
+      parameters:
+        - name: token
+          in: query
+          description: 檢查使用者token
+          # required: true
+          schema:
+            type: string
+      # 回應參數
+      responses:
+        '200':    # status code
+          description: 顯示token是否有效。
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  code:
+                    type: int
+                    example: 1
+                  message:
+                    type: string
+                    example: Login success.
+                  token:
+                    type: string
+                    example: 95f585c748524b1ba154c13a37f973f4
