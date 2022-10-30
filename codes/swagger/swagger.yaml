@@ -7,14 +7,14 @@ servers:
   - url: http://127.0.0.1:8081
     description: 銀行伺服器
 tags:
-  - name: "銀行API"
+  - name: "登入"
     description: "從銀行領錢的API。"
 
 paths:
   /api/login:
     get:
       tags:
-      - "銀行API"
+      - "登入"
       summary: 登入使用者取得token。
       description: ""
       # 請求參數
@@ -53,7 +53,7 @@ paths:
                     example: 95f585c748524b1ba154c13a37f973f4
     post:
       tags:
-      - "銀行API"
+      - "登入"
       summary: 登入使用者取得token。
       description: ""
       requestBody:
@@ -65,11 +65,11 @@ paths:
               type: object
               # 請求參數
               properties:
-                - account:
+                account:
                   type: string
                   default: user
                   required: true
-                - password:
+                password:
                   type: string
                   default: user 
                   required: true    
@@ -97,7 +97,7 @@ paths:
       security:
         - token: []
       tags:
-      - "銀行API"
+      - "登入"
       summary: 檢查使用者token
       description: ""
       # 請求參數

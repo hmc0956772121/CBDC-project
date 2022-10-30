@@ -1,5 +1,6 @@
 from django.shortcuts import redirect
 from app_core.models.Login import Login
+from app_core.urls import none_login_pages
 
 class LoginMiddleware:
     """登入驗證中間層
@@ -12,16 +13,15 @@ class LoginMiddleware:
         self.login = Login()
         
         # 把不用登入的頁面與API寫到這裡
-        self.none_login_pages = [
-            "/login",
-            "/api/check_login",
-        ]
+        self.none_login_pages = none_login_pages
 
     def __call__(self, request):
-        if request.path not in self.none_login_pages :
-            if self.login.check_login_from_request(request):
-                pass
-            else:
+        verify_login_result =self.login.check_login_from_request(request)
+        if request.path not in self.none_login_pages and "api" not in request.path:
+            if not verify_login_result:
                 return redirect("/login")
+        else:
+            if verify_login_result and "api" not in request.path:
+                return redirect("/")
         response = self.get_response(request)
         return response

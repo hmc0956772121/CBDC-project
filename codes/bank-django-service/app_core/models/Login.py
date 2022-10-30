@@ -1,3 +1,4 @@
+from tokenize import Token
 from .User import User
 import hashlib
 import json 
@@ -125,9 +126,7 @@ class Login():
         elif "token" in request.COOKIES:
             token = request.COOKIES["token"]
         elif token == None:# 若無token 進行回應
-            result = {'code':0,'message':'Missing token'}
-            result = json.dumps(result)
-            return result
+            return False
 
         # 檢查 Redis 中是否存在該Token
         if self.login_verify(token):

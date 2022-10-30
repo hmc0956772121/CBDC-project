@@ -12,3 +12,8 @@ urlpatterns = [
     path('api/login', views.login_api),
     path('api/check_login', views.check_login),
 ]
+
+# 把不需要登入就可以瀏覽的頁面加入這裡
+none_login_pages = [
+    "/login",
+]
