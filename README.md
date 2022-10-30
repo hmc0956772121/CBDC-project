@@ -61,6 +61,8 @@ python manage.py loaddata app_core/fixtures/data.json
 
 # Git 添加Fork 上游的方法
 
+這是將Git添加上Fork的方法。
+
 ```
 git remote add upstream git@github.com:AlexTrinityBlock/CBDC-project.git
 git pull upstream master
