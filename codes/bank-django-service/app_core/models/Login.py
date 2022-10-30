@@ -107,6 +107,34 @@ class Login():
         result = json.dumps(result)
         return result
 
+    # 檢查是否登入
+    def check_login_from_request(self, request):
+        data = None
+        result =dict()
+        token = None
+
+        # 無論GET或者POST都接收，之後依照需求修改
+        if request.method == 'GET':
+            data = request.GET
+        elif request.method == 'POST':
+            data = request.POST
+
+        # 檢查Token 是否正確，同時相容token存在於cookie或者request中。
+        if "token" in data:
+            token = data["token"]
+        elif "token" in request.COOKIES:
+            token = request.COOKIES["token"]
+        elif token == None:# 若無token 進行回應
+            result = {'code':0,'message':'Missing token'}
+            result = json.dumps(result)
+            return result
+
+        # 檢查 Redis 中是否存在該Token
+        if self.login_verify(token):
+            return True
+        else:
+            return False
+
     # 檢查是否登入(用於非API)的驗證
     def login_verify(self,token):
         redis_connection = redis.Redis(host=os.environ['REDIS_IP'], port=6379, db=0, password=os.environ['REDIS_PASSWORD'])
