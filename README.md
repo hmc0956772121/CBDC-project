@@ -61,7 +61,7 @@ python manage.py loaddata app_core/fixtures/data.json
 
 # Git 添加Fork 上游的方法
 
-將Fork上游pull 到本地端。
+將Fork上游pull 到本地端的方法。
 
 1. 添加專案原始版本的儲存庫做為上游。
 
