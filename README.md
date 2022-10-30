@@ -53,7 +53,7 @@ python manage.py createsuperuser
 python manage.py runserver 0.0.0.0:8000
 ```
 
-### 手動載入測試資料
+### 手動載入測試資料庫資料
 
 ```
 python manage.py loaddata app_core/fixtures/data.json
