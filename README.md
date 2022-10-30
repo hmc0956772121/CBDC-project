@@ -58,3 +58,11 @@ python manage.py runserver 0.0.0.0:8000
 ```
 python manage.py loaddata app_core/fixtures/data.json
 ```
+
+# Git 添加Fork 上游的方法
+
+```
+git remote add upstream git@github.com:AlexTrinityBlock/CBDC-project.git
+git pull upstream master
+git push origin master
+```
