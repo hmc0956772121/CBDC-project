@@ -63,8 +63,22 @@ python manage.py loaddata app_core/fixtures/data.json
 
 將Fork上游pull 到本地端的方法。
 
+1. 添加專案原始版本的儲存庫做為上游。
+
 ```
 git remote add upstream git@github.com:AlexTrinityBlock/CBDC-project.git
+```
+
+2. 將上游拉取，並且解決衝突。
+
+```
 git pull upstream master
+```
+
+3. 推送上傳到自己的Fork
+
+```
 git push origin master
 ```
+
+4. 到Github頁面發送Pull Request
