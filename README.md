@@ -1,10 +1,17 @@
-# 啟動專案Docker容器群 2022/10/25
+# CBDC 數位貨幣
+
+該計畫目前屬於開發原型階段，尚未發布。
+
+---
+# Notes
+
+## 啟動專案Docker容器群
 
 ```
 docker-compose up -d --build --force-recreate
 ```
 
-# 銀行 Django 伺服器
+## 銀行 Django 伺服器
 
 ### 命令行登入docker容器
 
@@ -59,7 +66,7 @@ python manage.py runserver 0.0.0.0:8000
 python manage.py loaddata app_core/fixtures/data.json
 ```
 
-# Git 添加Fork 上游的方法
+## Git 添加Fork 上游的方法
 
 將Fork上游pull 到本地端的方法。
 
