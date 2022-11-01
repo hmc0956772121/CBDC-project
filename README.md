@@ -1,5 +1,4 @@
 
-#test word
 # 啟動專案Docker容器群 2022/10/25
 =======
 # CBDC 數位貨幣
@@ -93,3 +92,5 @@ git push origin master
 ```
 
 4. 到Github頁面發送Pull Request
+
+123456
