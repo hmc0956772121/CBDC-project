@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-t$h%__5+-(e$$w-mqe%yc$=o^v069$$5+7q98%sd4w(2(op=$d'
+SECRET_KEY = os.environ['BANK_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'app_core.middlewares.LoginMiddleware.LoginMiddleware',
+    'app_core.middlewares.LoginMiddleware.LoginMiddleware', # 手動添加，登入中間層。
 ]
 
 ROOT_URLCONF = 'cbdc.urls'

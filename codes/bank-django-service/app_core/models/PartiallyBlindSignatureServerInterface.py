@@ -27,6 +27,8 @@ ZeroKnowledgeProofC2List: List，20個C2'的零知識證明參數(x,r')或者(x'
 
 N: Yi的公鑰1
 g: Yi的公鑰2
+
+F1 ~ Fn: 加密的公開訊息Hash
 =================
 signer寄送-3
 

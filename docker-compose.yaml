@@ -43,6 +43,8 @@ services:
       ECDSA_PUBLICKEY: ${ECDSA_PUBLICKEY}
       # ECDSA 私鑰
       ECDSA_PRIVATEKEY: ${ECDSA_PRIVATEKEY}
+      # 銀行Django金鑰
+      BANK_SECRET_KEY: ${BANK_SECRET_KEY}
     # 等待資料庫系統運作後再啟動
     depends_on:
       - bank-database-service
