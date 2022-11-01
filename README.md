@@ -93,6 +93,7 @@ git push origin master
 ## Git本地dev分支同步遠端dev
 
 僅需要於本地建立dev分支一開始使用，可以鎖定遠端dev拉取。
+(該動作僅在本地有dev分支開發需求時使用。)
 
 ```
 git branch --set-upstream-to=origin/dev  dev
