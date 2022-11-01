@@ -90,4 +90,18 @@ git push origin master
 
 4. 到Github頁面發送Pull Request
 
-1234567456789
+## Git本地dev分支同步遠端dev
+
+僅需要於本地建立dev分支一開始使用，可以鎖定遠端dev拉取。
+
+```
+git branch --set-upstream-to=origin/dev  dev
+```
+
+鎖定完畢後，未來僅需要
+
+```
+git pull
+```
+
+即可完成dev分支拉取。
