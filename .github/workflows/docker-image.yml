@@ -19,5 +19,9 @@ jobs:
     - name: Build containers
       run: docker-compose up -d
 
+    - name: Sleep for 20 seconds
+      run: sleep 20s
+      shell: bash
+
     - name: Test Methods
       run: docker compose exec bank-django-service bash ./Test
