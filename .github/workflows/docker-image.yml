@@ -15,13 +15,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    
     - name: Build containers
       run: docker-compose up -d
-
-    - name: Sleep for 20 seconds
-      run: sleep 20s
-      shell: bash
 
     - name: Test Methods
       uses: nick-fields/retry@v2
