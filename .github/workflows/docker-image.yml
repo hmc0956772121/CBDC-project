@@ -2,9 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "dev" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "dev" ]
 
 jobs:
 
@@ -18,3 +18,6 @@ jobs:
     
     - name: Build containers
       run: docker-compose up -d
+
+    - name: Test Methods
+      run: docker compose exec bank-django-service bash ./Test
