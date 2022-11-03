@@ -111,7 +111,7 @@ services:
       - ./codes/swagger:/app
     # 開啟 8081 port 對外
     ports:
-      - "8084:8080"
+      - "8085:8080"
     # 啟動後指令
     command: ""
     #網路IP設置
