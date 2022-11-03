@@ -24,4 +24,9 @@ jobs:
       shell: bash
 
     - name: Test Methods
-      run: docker compose exec bank-django-service bash ./Test
+      uses: nick-fields/retry@v2
+      with:
+        timeout_minutes: 10
+        max_attempts: 20
+        command: docker compose exec bank-django-service bash ./Test
+
