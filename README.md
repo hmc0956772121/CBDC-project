@@ -95,6 +95,8 @@ git push origin master
 僅需要於本地建立dev分支一開始使用，可以鎖定遠端dev拉取。
 (該動作僅在本地有dev分支開發需求時使用。)
 
+(該動作僅在本地有dev分支開發需求時使用。)
+
 ```
 git branch --set-upstream-to=origin/dev  dev
 ```
@@ -106,3 +108,11 @@ git pull
 ```
 
 即可完成dev分支拉取。
+
+## 拉取所有進行追蹤的遠端分支
+
+將所有追蹤的遠端分支進行拉取。
+
+```
+git pull --all
+```

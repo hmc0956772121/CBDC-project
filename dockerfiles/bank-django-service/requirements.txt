@@ -6,4 +6,3 @@ django-cors-headers == 3.10.0
 requests == 2.27.0
 gmpy2 == 2.1.2
 starkbank-ecdsa == 2.1.0
-django-cors-headers
